@@ -8,18 +8,20 @@ import {
   CardActions,
 } from '@material-ui/core';
 import { AddShoppingCart } from '@material-ui/icons';
+import useStyles from './style';
 
 function Product({ product }) {
+  const classes = useStyles();
   return (
-    <Card className="max-w-md overflow-hidden">
+    <Card className={classes.root}>
       <CardMedia
-        className="h-0 p-16"
+        className={classes.media}
         image={product.image}
         title={product.name}
       />
 
       <CardContent>
-        <div className="flex justify-between over">
+        <div className={classes.cardContent}>
           <Typography gutterBottom variant="h5" gutterBottom>
             {product.name}
           </Typography>
@@ -30,7 +32,7 @@ function Product({ product }) {
         </Typography>
       </CardContent>
 
-      <CardActions disableSpacing className="flex justify-end">
+      <CardActions disableSpacing className="classes.cardActions">
         <IconButton aria-label="add to shopping cart">
           <AddShoppingCart />
         </IconButton>

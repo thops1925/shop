@@ -1,11 +1,40 @@
-import React from 'react'
+import React from 'react';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  IconButton,
+  Badge,
+  MenuItem,
+  Menu,
+} from '@material-ui/core';
+import { ShoppingCart } from '@material-ui/icons';
+import logo from '../../assets/thopz.jpg';
+import useStyles from './navbarStyles';
 
 function Navbar() {
-    return (
-        <div>
-            
-        </div>
-    )
+  const classes = useStyles();
+  return (
+    <>
+      <AppBar position="fixed" className={classes.appBar} color="inherit">
+        <Toolbar>
+          <Typography variant="h6" className={classes.title} color="inherit">
+            <img src={logo} alt="Thops" className={classes.image} />
+            Thopz
+          </Typography>
+          <div className={classes.grow} />
+          <div className={classes.button}>
+            <IconButton aria-label="show cart items" color="inherit">
+              <Badge badgeContent={5} color="secondary">
+                <ShoppingCart />
+              </Badge>
+            </IconButton>
+          </div>
+        </Toolbar>
+      </AppBar>
+    </>
+  );
 }
 
-export default Navbar
+export default Navbar;
