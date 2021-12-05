@@ -10,7 +10,7 @@ import {
   Menu,
 } from '@material-ui/core';
 import { ShoppingCart } from '@material-ui/icons';
-import logo from '../../assets/thopz.jpg';
+import logo from '../../assets/thops1.png';
 import useStyles from './navbarStyles';
 
 function Navbar() {
@@ -21,7 +21,7 @@ function Navbar() {
         <Toolbar>
           <Typography variant="h6" className={classes.title} color="inherit">
             <img src={logo} alt="Thops" className={classes.image} />
-            Thopz
+            Thopz Imagery
           </Typography>
           <div className={classes.grow} />
           <div className={classes.button}>
