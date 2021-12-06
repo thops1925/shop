@@ -12,6 +12,7 @@ import {
 import { ShoppingCart } from '@material-ui/icons';
 import logo from '../../assets/thops1.png';
 import useStyles from './navbarStyles';
+import { Link } from 'react-router-dom';
 
 function Navbar({ totalItems }) {
   const classes = useStyles();
@@ -19,17 +20,21 @@ function Navbar({ totalItems }) {
     <>
       <AppBar position="fixed" className={classes.appBar} color="inherit">
         <Toolbar>
-          <Typography variant="h6" className={classes.title} color="inherit">
-            <img src={logo} alt="Thops" className={classes.image} />
-            Thopz Imagery
-          </Typography>
+          <Link to="/">
+            <Typography variant="h6" className={classes.title} color="inherit">
+              <img src={logo} alt="Thops" className={classes.image} />
+              Thopz Imagery
+            </Typography>
+          </Link>
           <div className={classes.grow} />
           <div className={classes.button}>
-            <IconButton aria-label="show cart items" color="inherit">
-              <Badge badgeContent={totalItems} color="secondary">
-                <ShoppingCart />
-              </Badge>
-            </IconButton>
+            <Link to="/cart">
+              <IconButton aria-label="show cart items" color="inherit">
+                <Badge badgeContent={totalItems} color="secondary">
+                  <ShoppingCart />
+                </Badge>
+              </IconButton>
+            </Link>
           </div>
         </Toolbar>
       </AppBar>

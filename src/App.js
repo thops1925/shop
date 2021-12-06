@@ -27,11 +27,16 @@ function App() {
   console.log(cart);
 
   return (
-    <div>
+    <BrowserRouter>
       <Navbar totalItems={cart.total_items} />
-      <Products products={products} addToCart={handleAddToCart} />
-      <Cart item={cart} />
-    </div>
+      <Routes>
+        <Route
+          index
+          element={<Products products={products} addToCart={handleAddToCart} />}
+        />
+        <Route path="cart" element={<Cart item={cart} />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

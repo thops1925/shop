@@ -23,7 +23,7 @@ function Product({ product, onAddToCart }) {
 
       <CardContent>
         <div className={classes.cardContent}>
-          <Typography gutterBottom variant="h5" gutterBottom>
+          <Typography gutterBottom variant="h5">
             {product.name}
           </Typography>
           <Typography variant="h5">
