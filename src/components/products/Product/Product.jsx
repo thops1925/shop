@@ -10,8 +10,7 @@ import {
 import { AddShoppingCart } from '@material-ui/icons';
 import useStyles from './style';
 
-function Product({ product }) {
-  console.log(product);
+function Product({ product, onAddToCart }) {
   const classes = useStyles();
 
   return (
@@ -35,11 +34,14 @@ function Product({ product }) {
           dangerouslySetInnerHTML={{ __html: product.description }}
           variant="body2"
           color="textSecondary"
-        ></Typography>
+        />
       </CardContent>
 
-      <CardActions disableSpacing className="classes.cardActions">
-        <IconButton aria-label="add to shopping cart">
+      <CardActions disableSpacing className={classes.cardActions}>
+        <IconButton
+          aria-label="add to shopping cart"
+          onClick={() => onAddToCart(product.id, 1)}
+        >
           <AddShoppingCart />
         </IconButton>
       </CardActions>
