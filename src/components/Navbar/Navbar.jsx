@@ -12,10 +12,12 @@ import {
 import { ShoppingCart } from '@material-ui/icons';
 import logo from '../../assets/thops1.png';
 import useStyles from './navbarStyles';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 function Navbar({ totalItems }) {
   const classes = useStyles();
+  const location = useLocation();
+
   return (
     <>
       <AppBar position="fixed" className={classes.appBar} color="inherit">
@@ -28,13 +30,15 @@ function Navbar({ totalItems }) {
           </Link>
           <div className={classes.grow} />
           <div className={classes.button}>
-            <Link to="/cart">
-              <IconButton aria-label="show cart items" color="inherit">
-                <Badge badgeContent={totalItems} color="secondary">
-                  <ShoppingCart />
-                </Badge>
-              </IconButton>
-            </Link>
+            {location.pathname === '/' && (
+              <Link to="/cart">
+                <IconButton aria-label="show cart items" color="inherit">
+                  <Badge badgeContent={totalItems} color="secondary">
+                    <ShoppingCart />
+                  </Badge>
+                </IconButton>
+              </Link>
+            )}
           </div>
         </Toolbar>
       </AppBar>
