@@ -25,7 +25,7 @@ function Navbar({ totalItems }) {
           <Link to="/">
             <Typography variant="h6" className={classes.title} color="inherit">
               <img src={logo} alt="Thops" className={classes.image} />
-              Thopz Imagery
+              Thopz Shop
             </Typography>
           </Link>
           <div className={classes.grow} />

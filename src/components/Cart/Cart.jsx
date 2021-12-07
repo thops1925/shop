@@ -13,9 +13,11 @@ function Cart({
 
   const EmptyCart = () => (
     <Typography variant="subtitle1">
-      Your cart is empty
-      <Link to="/" className={classes.link}>
-        Start adding item now
+      <Link
+        to="/"
+        className="flex justify-center items-center text-green-500 text-xl"
+      >
+        Empty Cart Start Shopping Now
       </Link>
     </Typography>
   );
