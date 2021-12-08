@@ -3,11 +3,8 @@ import {
   AppBar,
   Toolbar,
   Typography,
-  Button,
   IconButton,
   Badge,
-  MenuItem,
-  Menu,
 } from '@material-ui/core';
 import { ShoppingCart } from '@material-ui/icons';
 import logo from '../../assets/thops1.png';

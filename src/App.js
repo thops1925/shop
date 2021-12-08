@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { Products, Navbar, Cart } from './components';
+import { Products, Navbar, Cart, CheckOut } from './components';
 import { commerce } from './lib/commerce';
 
 function App() {
@@ -62,6 +62,8 @@ function App() {
             />
           }
         />
+        <Route path="/checkout" element={<CheckOut />} />
+        <Route path="*" element={<h1>404</h1>} />
       </Routes>
     </BrowserRouter>
   );
