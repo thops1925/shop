@@ -11,17 +11,16 @@ import {
 } from '@material-ui/core';
 import useStyles from './checkoutStyles';
 import PaymentDetails from '../PaymentDetails';
-import ShippingAddress from '../ShippingAddress';
+import AddressForm from '../AddressForm';
 
 const steps = ['Shipping address', 'Payment details'];
 
 const CheckOut = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
+  const Confirmation = () => <div>Confirmation</div>;
 
-  const Form = () =>
-    activeStep === 0 ? <ShippingAddress /> : <PaymentDetails />;
-  const Confirmation = () => <Typography>Confirmation</Typography>;
+  const Form = () => (activeStep === 0 ? <AddressForm /> : <PaymentDetails />);
   return (
     <>
       <div className={classes.toolbar} />

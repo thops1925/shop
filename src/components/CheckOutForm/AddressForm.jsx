@@ -10,7 +10,7 @@ import {
 import { useForm, FormProvider } from 'react-hook-form';
 import FormInput from './FormInput';
 
-const ShippingAddress = () => {
+const AddressForm = () => {
   const methods = useForm();
 
   return (
@@ -18,11 +18,14 @@ const ShippingAddress = () => {
       <Typography variant="h6" gutterBottom>
         Shipping Address
       </Typography>
-      ;
+
       <FormProvider {...methods}>
         <form onSubmit="">
           <Grid container spacing={3}>
-            <FormInput required name="firstname" label="firstname" />
+            <FormInput required name="firstname" label="First Name" />
+            <FormInput required name="lastname" label="Last Name" />
+            <FormInput required name="contact" label="Contact Number" />
+            <FormInput required name="address" label="Address" />
           </Grid>
         </form>
       </FormProvider>
@@ -30,4 +33,4 @@ const ShippingAddress = () => {
   );
 };
 
-export default ShippingAddress;
+export default AddressForm;
