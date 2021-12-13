@@ -62,7 +62,7 @@ function App() {
             />
           }
         />
-        <Route path="/checkout" element={<CheckOut />} />
+        <Route path="/checkout" element={<CheckOut cart={cart} />} />
         <Route path="*" element={<h1>404</h1>} />
       </Routes>
     </BrowserRouter>
