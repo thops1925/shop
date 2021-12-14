@@ -12,25 +12,25 @@ import FormInput from './FormInput';
 import { commerce } from '../../lib/commerce';
 
 const AddressForm = ({ checkoutToken }) => {
+  const methods = useForm();
+
   const [isCountries, setCountries] = useState([]);
   const [isOption, setOpition] = useState([]);
   const [isSub, setSub] = useState([]);
-
   const [isCountry, setCountry] = useState('');
   const [isSubChoose, setSubChoose] = useState('');
   const [isOpitonChoose, setOptionChoose] = useState('');
-  const methods = useForm();
 
   const fetchCountries = async (checkoutTokenId) => {
     const { countries } = await commerce.services.localeListShippingCountries(
       checkoutTokenId
     );
-    console.log(countries);
     setCountries(countries);
+    console.log(countries);
   };
 
   useEffect(() => {
-    fetchCountries(checkoutToken);
+    fetchCountries(checkoutToken.id);
   }, []);
 
   return (
@@ -40,7 +40,7 @@ const AddressForm = ({ checkoutToken }) => {
       </Typography>
 
       <FormProvider {...methods}>
-        <form onSubmit="">
+        <form>
           <Grid container spacing={3}>
             <FormInput required name="firstname" label="First Name" />
             <FormInput required name="lastname" label="Last Name" />
@@ -48,18 +48,23 @@ const AddressForm = ({ checkoutToken }) => {
             <FormInput required name="email" label="Email" />
             <FormInput required name="City" label="City" />
             <FormInput required name="zip" label="ZIP" />
-          </Grid>
-          {/* 
+
             <Grid item xs={12} sm={6}>
               <InputLabel>Country</InputLabel>
-              <Select value={} fullWidth onChange="">
-                <MenuItem key={} value={}>
-                  Select Country
+              <Select
+                value={isCountry}
+                fullWidth
+                onChange={(e) => setCountry(e.target.value)}
+              >
+                {Object.entries(isCountries).map(([key, value]) => (
+                  <MenuItem key={key} value={key}>
+                    {value}
                   </MenuItem>
+                ))}
               </Select>
-          </Grid>
+            </Grid>
 
-          <Grid item xs={12} sm={6}>
+            {/* <Grid item xs={12} sm={6}>
               <InputLabel>Shipping Subdivision</InputLabel>
               <Select value={} fullWidth onChange="">
                 <MenuItem key={} value={}>
@@ -75,7 +80,8 @@ const AddressForm = ({ checkoutToken }) => {
                   Select Country
                   </MenuItem>
               </Select>
-          </Grid> */}
+          </Grid>  */}
+          </Grid>
         </form>
       </FormProvider>
     </>
