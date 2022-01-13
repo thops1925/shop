@@ -26,7 +26,7 @@ const AddressForm = ({ checkoutToken }) => {
       checkoutTokenId
     );
     setCountries(countries);
-    console.log(countries);
+    setCountry(Object.keys(countries)[0]);
   };
 
   useEffect(() => {

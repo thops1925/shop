@@ -17,7 +17,7 @@ const steps = ['Shipping address', 'Payment details'];
 
 const CheckOut = ({ cart }) => {
   const [activeStep, setActiveStep] = useState(0);
-  const [checkoutToken, setCheckoutTokken] = useState(null);
+  const [checkoutToken, setCheckoutToken] = useState(null);
   const classes = useStyles();
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const CheckOut = ({ cart }) => {
         const token = await commerce.checkout.generateToken(cart.id, {
           type: 'cart',
         });
-        setCheckoutTokken(token);
+        setCheckoutToken(token);
       } catch (err) {}
     };
     generateToken();
