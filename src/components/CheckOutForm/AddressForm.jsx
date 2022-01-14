@@ -51,8 +51,8 @@ const AddressForm = ({ checkoutToken }) => {
   }, [checkoutToken]);
 
   useEffect(() => {
-    if (isSub) fetchSub(isSub);
-  }, [isSub]);
+    if (isCountry) fetchSub(isCountry);
+  }, [isCountry]);
 
   return (
     <>
@@ -88,9 +88,9 @@ const AddressForm = ({ checkoutToken }) => {
             <Grid item xs={12} sm={6}>
               <InputLabel>Shipping Subdivision</InputLabel>
               <Select
-                value={isSub}
+                value={isSubChoose}
                 fullWidth
-                onChange={(e) => setSub(e.target.value)}
+                onChange={(e) => setSubChoose(e.target.value)}
               >
                 {subShipping.map((sub) => (
                   <MenuItem key={sub.id} value={sub.id}>
