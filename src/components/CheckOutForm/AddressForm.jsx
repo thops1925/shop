@@ -10,8 +10,9 @@ import {
 import { useForm, FormProvider } from 'react-hook-form';
 import FormInput from './FormInput';
 import { commerce } from '../../lib/commerce';
+import { Link } from 'react-router-dom';
 
-const AddressForm = ({ checkoutToken }) => {
+const AddressForm = ({ checkoutToken, next }) => {
   const methods = useForm();
 
   const [isCountries, setCountries] = useState([]);
@@ -32,10 +33,27 @@ const AddressForm = ({ checkoutToken }) => {
     label: name,
   }));
 
-  const optionShipping = isOption.map((SO) => ({
-    id: SO.id,
-    label: `${SO.description}-(${SO.price.formatted_with_symbol})`,
+  const optionShipping = isOption.map((sO) => ({
+    id: sO.id,
+    label: `${sO.description}-(${sO.price.formatted_with_symbol})`,
   }));
+
+  const fetchCountries = async (checkoutTokenId) => {
+    const { countries } = await commerce.services.localeListShippingCountries(
+      checkoutTokenId
+    );
+
+    setCountries(countries);
+    setCountry(Object.keys(countries)[0]);
+  };
+
+  const fetchSub = async (countryCode) => {
+    const { subdivisions } = await commerce.services.localeListSubdivisions(
+      countryCode
+    );
+    setSub(subdivisions);
+    setSubChoose(Object.keys(subdivisions)[0]);
+  };
 
   const fetchOption = async (checkoutTokenId, country, region = null) => {
     const options = await commerce.checkout.getShippingOptions(
@@ -49,33 +67,17 @@ const AddressForm = ({ checkoutToken }) => {
     setOptionChoose(options[0].id);
   };
 
-  const fetchCountries = async (checkoutTokenId) => {
-    const { countries } = await commerce.services.localeListShippingCountries(
-      checkoutTokenId
-    );
-    setCountries(countries);
-    setCountry(Object.keys(countries)[0]);
-  };
-
-  const fetchSub = async (countryCode) => {
-    const { subdivisions } = await commerce.services.localeListSubdivisions(
-      countryCode
-    );
-    setSub(subdivisions);
-    setSubChoose(Object.keys(subdivisions)[0]);
-  };
-
   useEffect(() => {
     fetchCountries(checkoutToken.id);
-  }, [checkoutToken]);
+  }, []);
 
   useEffect(() => {
     if (isCountry) fetchSub(isCountry);
   }, [isCountry]);
 
   useEffect(() => {
-    if (isSub) fetchOption(checkoutToken.id, isCountry, isSubChoose);
-  }, [isSub, checkoutToken, isCountry, isSubChoose]);
+    if (isSubChoose) fetchOption(checkoutToken.id, isCountry, isSubChoose);
+  }, [isSubChoose]);
 
   return (
     <>
@@ -84,14 +86,18 @@ const AddressForm = ({ checkoutToken }) => {
       </Typography>
 
       <FormProvider {...methods}>
-        <form>
+        <form
+          onSubmit={methods.handleSubmit((data) =>
+            next({ ...data, isCountry, isOpitonChoose, isSubChoose })
+          )}
+        >
           <Grid container spacing={3}>
-            <FormInput required name="firstname" label="First Name" />
-            <FormInput required name="lastname" label="Last Name" />
-            <FormInput required name="address" label="Address" />
-            <FormInput required name="email" label="Email" />
-            <FormInput required name="City" label="City" />
-            <FormInput required name="zip" label="ZIP" />
+            <FormInput name="firstname" label="First Name" />
+            <FormInput name="lastname" label="Last Name" />
+            <FormInput name="address" label="Address" />
+            <FormInput name="email" label="Email" />
+            <FormInput name="City" label="City" />
+            <FormInput name="zip" label="ZIP" />
 
             <Grid item xs={12} sm={6}>
               <InputLabel>Country</InputLabel>
@@ -126,19 +132,33 @@ const AddressForm = ({ checkoutToken }) => {
             <Grid item xs={12} sm={6}>
               <InputLabel>Shipping Options</InputLabel>
               <Select
-                value={isOption}
+                value={isOpitonChoose}
                 fullWidth
-                onChange={(e) => setOpition(e.target.value)}
+                onChange={(e) => setOptionChoose(e.target.value)}
               >
-                {optionShipping.map((option) => (
-                  <MenuItem key={option.id} value={option.id}>
-                    {option.label}
+                {optionShipping.map((sub) => (
+                  <MenuItem key={sub.id} value={sub.id}>
+                    {sub.label}
                   </MenuItem>
                 ))}
               </Select>
             </Grid>
           </Grid>
         </form>
+        <br />
+        <div className="flex justify-between">
+          <Button
+            component={Link}
+            to="/cart"
+            variant="outlined"
+            color="primary"
+          >
+            Back
+          </Button>
+          <Button type="submit" variant="contained" color="primary">
+            Continue to Payment
+          </Button>
+        </div>
       </FormProvider>
     </>
   );
